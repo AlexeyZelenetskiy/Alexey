@@ -1,15 +1,14 @@
+#include "stdafx.h"
 #include "StdAfx.h"
 #include "Rational.h"
 #include <iostream>
 using namespace std;
-
-Rational::Rational(void)
+Rational::Rational(void) 
 {
-	int ch1; int zn1;
-	cout<<"Vvedite chislitel: ";
-	cin>>ch1;
-	cout<<"Vvedite znamenatel: ";
-	cin>>zn1;
+}
+Rational::Rational(int ch1, int zn1)
+{
+	try{
 	if(zn1<=0)
 		throw 1;
 	  int a=ch1; int b=zn1;
@@ -23,13 +22,18 @@ Rational::Rational(void)
 	 a=a+b;
 	 this->ch=ch1/a;
 	 this->zn=zn1/a;
+	}
+	catch(int k)
+	{
+		cout<<"ERROR!"<<endl;
+	}
 }
 
 
 Rational::~Rational(void)
 {
 }
-int Rational::ger_ch()
+int Rational::get_ch()
 {
 	return this->ch;
 }
@@ -43,16 +47,16 @@ void Rational::get_rat()
 	cout<<"/";
 	cout<<this->zn;
 }
-Rational&  Rational::operator+(Rational & r)
+Rational&  Rational::operator+(Rational r)
 {
 	int newch, newzn;
 	if(Rational::zn!=r.get_zn()){
 	newzn=Rational::zn*r.get_zn();
-	newch=r.get_zn()*Rational::ch+r.ger_ch()*zn;
+	newch=r.get_zn()*Rational::ch+r.get_ch()*zn;
 	}
 	else{
 		newzn=r.get_zn();
-	    newch=r.ger_ch()+ch;
+	    newch=r.get_ch()+ch;
 	}
 	int a=newch; int b=newzn;
 	  while( a !=0 && b !=0)
@@ -67,9 +71,9 @@ Rational&  Rational::operator+(Rational & r)
 	 this->zn=newzn/a;
 	 return *this;
 }
-Rational & Rational::operator*(Rational & r)
+Rational & Rational::operator*(Rational r)
 {
-	int newch=ch*r.ger_ch();
+	int newch=ch*r.get_ch();
 	int newzn=zn*r.get_zn();
 	int a=newch; int b=newzn;
 	  while( a !=0 && b !=0)
@@ -83,4 +87,12 @@ Rational & Rational::operator*(Rational & r)
 	 this->ch=newch/a;
 	 this->zn=newzn/a;
 	 return *this;;
+}
+void Rational::set_ch(int a)
+{
+	this->ch=a;
+}
+void Rational::set_zn(int a)
+{
+	this->zn=a;
 }
