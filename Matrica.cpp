@@ -11,7 +11,7 @@ Matrica::Matrica(void)
 	while(k)
 	{
 	try{
-	cout<<"Vvedite kolvo strok: ";
+	cout<<"Vvedite kolvo strok: "; // вот чем не должен заниматься конструктор, так это читать что-то.
 	cin>>n1;
 	cout<<"Vvedite kolvo stolbcov: ";
 	cin>>m1;
@@ -54,7 +54,7 @@ Matrica::Matrica(int n1, int m1)
    }
    catch(int k)
    { 
-	   cout<<"I can't create this matrix:(("<<endl; 
+	   cout<<"I can't create this matrix:(("<<endl; // кто это прочитает из winapi приложения?
 	   this->n=0;
 	   this->m=0;
    }
@@ -96,18 +96,18 @@ Matrica & Matrica::operator|(Matrica m1)
 			   m2.r[i][j]=this->r[i][j];
 			 else
 			   m2.r[i][j]=m1.r[i][j-this->m];
-		return m2;
+		return m2; // возвращается ссылка на локальный объект, который при выходе сразу разрушится
 	  }
            
     }
-	catch(int k)
+	catch(int k) // как об ошибке вызывающий код узнает?
 	{ 
 		cout<<"error!"<<endl; 
 		return *this;
 	}
 
 }
-Matrica & Matrica::operator*(int a)
+Matrica & Matrica::operator*(int a) // похоже на *=
 {
 	int b; int c;
 	for(int i=0; i<n; i++)
@@ -128,6 +128,7 @@ return *this;
 }
 Matrica Matrica::operator!()
 {
+	// неожиданно, но ок
 	Matrica m2(m, n);
 	for(int i=0; i<m; i++)
 	for(int j=0; j<n; j++)
@@ -138,7 +139,9 @@ Matrica Matrica::operator!()
     return  m2;
 
 }
-Rational Matrica::operator()(int a, int b)
+
+// почему бы не возвращать ссылку?
+Rational Matrica::operator()(int a, int b) // uint maybe?
 {
 	try
 	{
@@ -146,6 +149,6 @@ Rational Matrica::operator()(int a, int b)
 			throw 1;
 		return r[a-1][b-1];
 	}
-	catch(int k)
+	catch(int k) //
 	{cout<<"ERROR!!!"<<endl;}
 }
