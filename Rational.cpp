@@ -6,11 +6,11 @@ using namespace std;
 Rational::Rational(void) 
 {
 }
-Rational::Rational(int ch1, int zn1)
+Rational::Rational(int ch1, int zn1) // unsigned int zn1
 {
 	try{
-	if(zn1<=0)
-		throw 1;
+	if(zn1<=0) // == 0
+		throw 1; // специальный класс на исключения
 	  int a=ch1; int b=zn1;
 	  while( a !=0 && b !=0)
 	  {
@@ -23,7 +23,7 @@ Rational::Rational(int ch1, int zn1)
 	 this->ch=ch1/a;
 	 this->zn=zn1/a;
 	}
-	catch(int k)
+	catch(int k) // кому нужен этот catch? try-catch делает вызывающий код -- так узнает об ошибке
 	{
 		cout<<"ERROR!"<<endl;
 	}
@@ -47,7 +47,7 @@ void Rational::get_rat()
 	cout<<"/";
 	cout<<this->zn;
 }
-Rational&  Rational::operator+(Rational r)
+Rational&  Rational::operator+(Rational r) // это +=
 {
 	int newch, newzn;
 	if(Rational::zn!=r.get_zn()){
@@ -71,7 +71,7 @@ Rational&  Rational::operator+(Rational r)
 	 this->zn=newzn/a;
 	 return *this;
 }
-Rational & Rational::operator*(Rational r)
+Rational & Rational::operator*(Rational r) // это *=
 {
 	int newch=ch*r.get_ch();
 	int newzn=zn*r.get_zn();
